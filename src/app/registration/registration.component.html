@@ -1,0 +1,152 @@
+<div class="container">
+<!-----------------Header----------------------------------------------------------------------------------------->
+                       <div class="x">
+                       <header class="header">
+                        <h1 class="logo"><a href="#">SkyCliff IT</a></h1>
+                        <div class="col-md-3">
+                          <input type="text" #f (keyup)="search(f.value)" placeholder="serch here">
+                        </div>
+                      </header>
+                    </div>
+<!--!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!-->
+<div class="container">
+  <div class="reglist">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zip</th>
+          <th>Country</th>
+          <th>Phone1</th>
+          <th>Phone2</th>
+          <th>Fax</th>
+          <th>Website</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registration of registrations; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ registration.name }}</td>
+          <td>{{ registration.desc }}</td>
+          <td>{{ registration.addr}}</td>
+          <td>{{ registration.city }}</td>
+          <td>{{registration.state}}</td>
+          <td>{{ registration.zip }}</td>
+          <td>{{ registration.country }}</td>
+          <td>{{ registration.phone1 }}</td>
+          <td>{{ registration.phone2 }}</td>
+          <td>{{ registration.fax }}</td>
+          <td>{{ registration.website }}</td>
+          <td>
+            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" (click)="onEdit(i)">Edit</button>
+          </td>
+          <td>
+            <button type="button"  class="btn btn-danger" (click)="onDelete(i)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+      <!-- Trigger the modal with a button -->
+      <button type="submit" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" (click)="onNew()">Add New Location</button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <!-- <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h1>Add</h1>
+            </div> -->
+            <div class="modal-body">
+              <div class="regentry" *ngIf="showNew">
+
+                <form (ngSubmit)="onSave()">
+                  <div class="form-group row">
+                    <label for="firstname-input" class="col-2 col-form-label">Name</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.name" name="Name">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">Description</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.desc" name="Desc">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">Address</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.addr" name="Addr">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">City</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.city" name="City">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">State</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.state" name="State">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">Zip</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.zip" name="Zip">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">Country</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.country" name="Country">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">Phone1</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.phone1" name="Phone1">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">Phone2</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.phone2" name="Phone2">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">Fax</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.fax" name="Fax">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="lastname-input" class="col-2 col-form-label">Website</label>
+                    <div class="col-10">
+                      <input class="form-control" type="text" [(ngModel)]="regModel.website" name="website">
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-success">{{submitType}}</button>
+                  <!-- <button type="submit" class="btn btn-primary" (click)="onCancel()">Cancel</button> -->
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </form>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+
